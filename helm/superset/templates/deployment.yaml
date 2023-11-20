@@ -71,6 +71,11 @@ spec:
           {{- toYaml .Values.supersetNode.podLabels | nindent 8 }}
         {{- end }}
     spec:
+      {{- if .Values.supersetNode.deploymentAdditionalPodSpec }}
+      {{- range $key, $value := .Values.supersetNode.deploymentAdditionalPodSpec }}
+      {{ $key }}: {{ $value | quote }}
+      {{- end }}
+      {{- end }}
       {{- if or (.Values.serviceAccount.create) (.Values.serviceAccountName) }}
       serviceAccountName: {{ template "superset.serviceAccountName" . }}
       {{- end }}

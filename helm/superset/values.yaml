@@ -258,6 +258,7 @@ supersetNode:
     redis_host: '{{ .Release.Name }}-redis-headless'
     # redis_password: superset
     redis_port: "6379"
+    redis_driver: "redis"
     # You need to change below configuration incase bringing own PostgresSQL instance and also set postgresql.enabled:false
     db_host: '{{ .Release.Name }}-postgresql'
     db_port: "5432"
@@ -287,6 +288,8 @@ supersetNode:
   deploymentAnnotations: {}
   # -- Labels to be added to supersetNode deployment
   deploymentLabels: {}
+  # -- Custom pod spec to be added to supersetNode deployment
+  deploymentAdditionalPodSpec: {}
   # -- Affinity to be added to supersetNode deployment
   affinity: {}
   # -- TopologySpreadConstrains to be added to supersetNode deployments
@@ -375,6 +378,8 @@ supersetWorker:
   deploymentAnnotations: {}
   # -- Labels to be added to supersetWorker deployment
   deploymentLabels: {}
+  # -- Custom pod spec to be added to supersetWorker deployment
+  deploymentAdditionalPodSpec: {}
   # -- Affinity to be added to supersetWorker deployment
   affinity: {}
   # -- TopologySpreadConstrains to be added to supersetWorker deployments
@@ -443,6 +448,8 @@ supersetCeleryBeat:
         - dockerize -wait "tcp://$DB_HOST:$DB_PORT" -wait "tcp://$REDIS_HOST:$REDIS_PORT" -timeout 120s
   # -- Annotations to be added to supersetCeleryBeat deployment
   deploymentAnnotations: {}
+  # -- Custom pod spec to be added to supersetCeleryBeat deployment
+  deploymentAdditionalPodSpec: {}
   # -- Affinity to be added to supersetCeleryBeat deployment
   affinity: {}
   # -- TopologySpreadConstrains to be added to supersetCeleryBeat deployments
@@ -524,6 +531,8 @@ supersetCeleryFlower:
         - dockerize -wait "tcp://$DB_HOST:$DB_PORT" -wait "tcp://$REDIS_HOST:$REDIS_PORT" -timeout 120s
   # -- Annotations to be added to supersetCeleryFlower deployment
   deploymentAnnotations: {}
+  # -- Custom pod spec to be added to supersetCeleryFlower deployment
+  deploymentAdditionalPodSpec: {}
   # -- Affinity to be added to supersetCeleryFlower deployment
   affinity: {}
   # -- TopologySpreadConstrains to be added to supersetCeleryFlower deployments
@@ -589,6 +598,8 @@ supersetWebsockets:
   command: []
   resources: {}
   deploymentAnnotations: {}
+  # -- Custom pod spec to be added to supersetWebsockets deployment
+  deploymentAdditionalPodSpec: {}
   # -- Affinity to be added to supersetWebsockets deployment
   affinity: {}
   # -- TopologySpreadConstrains to be added to supersetWebsockets deployments
@@ -649,6 +660,8 @@ init:
   jobAnnotations:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-delete-policy": "before-hook-creation"
+  # -- Custom pod spec to be added to init job
+  additionalPodSpec: {}
   loadExamples: false
   createAdmin: true
   adminUser:
